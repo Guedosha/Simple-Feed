@@ -8,4 +8,4 @@ website: https://www.guedosha.com
 commands:
   feed:
     description: Feeds you to full hunger
-    usage: /<command> ; /<command> <target>
+    usage: /<command>, /<command> <target>

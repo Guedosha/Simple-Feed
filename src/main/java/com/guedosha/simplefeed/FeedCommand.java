@@ -15,38 +15,46 @@ public class FeedCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (sender instanceof Player p) {
+            if (!p.hasPermission("simplefeed.feed")) {
+                p.sendMessage(ChatColor.RED + "You don't have permission to use that command");
+                return true;
+            }
+
             if (args.length == 0) {
                 p.sendMessage(ChatColor.GOLD + "You have been fed");
+                p.setSaturation(10);
                 p.setFoodLevel(20);
             } else if (args.length == 1) {
                 String playerName = args[0];
-                Player target = Bukkit.getServer().getPlayerExact(playerName);
-                if (target == null) {
-                    p.sendMessage(ChatColor.GOLD + "That Player Isn't Online");
+                Player t = Bukkit.getServer().getPlayerExact(playerName);
+                if (t == null) {
+                    p.sendMessage(ChatColor.RED + "That player isn't online");
                 } else {
-                    p.sendMessage(ChatColor.RED + target.getName() + ChatColor.GOLD + " has been fed");
-                    target.sendMessage(ChatColor.GOLD + "You have been fed");
-                    target.setFoodLevel(20);
+                    p.sendMessage(ChatColor.YELLOW + "" + ChatColor.BOLD + t.getName() + ChatColor.GOLD + " has been fed");
+                    t.sendMessage(ChatColor.GOLD + "You have been fed");
+                    t.setSaturation(10);
+                    t.setFoodLevel(20);
                 }
             } else {
-                p.sendMessage(ChatColor.GOLD + "Usage: /feed ; /feed <target>");
+                p.sendMessage(ChatColor.RED + "Usage: /feed or /feed <target>");
             }
         } else {
             if (args.length == 0) {
-                plugin.getLogger().info("Usage: /feed <target>");
+                plugin.getLogger().info(ChatColor.RED + "Usage: /feed <target>");
             } else if (args.length == 1) {
-                String playerNameConsole = args[0];
-                Player t = Bukkit.getServer().getPlayerExact(playerNameConsole);
+                String playerName = args[0];
+                Player t = Bukkit.getServer().getPlayerExact(playerName);
 
                 if (t == null) {
-                    plugin.getLogger().info("That Player is not Online");
+                    plugin.getLogger().info(ChatColor.RED + "That player isn't online");
                 } else {
                     t.setFoodLevel(20);
+                    t.setSaturation(10);
                     t.sendMessage(ChatColor.GOLD + "You have been fed");
-                    plugin.getLogger().info(t.getName() + " Has been fed");
+                    plugin.getLogger().info(ChatColor.YELLOW + "" + ChatColor.BOLD + t.getName() + ChatColor.GOLD + " Has been fed");
                 }
             } else {
-                plugin.getLogger().info("Usage: /feed <target>");
+                plugin.getLogger().info(ChatColor.RED + "Usage: /feed <target>");
             }
         }
         return true;
