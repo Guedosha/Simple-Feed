@@ -1,0 +1,16 @@
+name: SimpleFeed
+version: '${project.version}'
+main: com.guedosha.simplefeed.Simplefeed
+api-version: 1.16
+authors: [ Guedosha ]
+description: Adds a simple /feed command to bring player to full hunger
+website: https://www.guedosha.com
+commands:
+  feed:
+    description: Feeds you to full hunger
+    usage: /<command>, /<command> <target>
+    permission: simplefeed.use
+  reload:
+    description: Reloads the plugin's config
+    usage: /simplefeed:reload
+    permission: simplefeed.reload
